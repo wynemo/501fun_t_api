@@ -1,6 +1,6 @@
 import web,twitUtil
 from config import settings
-from bitly import bitly
+from ..bitly import bitly
 
 class api:
     #def foo()
@@ -19,7 +19,7 @@ class api:
                         pos1 = url['indices'][0]
                         pos2 = url['indices'][1]
                         url['url'] = url['expanded_url']
-                        if usettings.no_jmp is True and\
+                        if settings.no_jmp is True and\
                             url['url'].startswith('http://j.mp') is True:
                             try:
                                 a = bitly.Api(settings.bitly_name,settings.bitly_key)
