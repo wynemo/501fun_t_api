@@ -1,7 +1,6 @@
 #!/usr/bin/python
 #coding:utf-8
 
-import oauth2 as oauth
 from oauthtwitter import OAuthApi
 from config import settings
 

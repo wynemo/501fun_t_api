@@ -28,7 +28,7 @@ except ImportError:
     from cgi import parse_qs, parse_qsl
 
 
-import oauth2 as oauth
+from .. import oauth2 as oauth
 from config import settings
 
 # Taken from oauth implementation at: http://github.com/harperreed/twitteroauth-python/tree/master
