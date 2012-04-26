@@ -20,7 +20,7 @@ consumer_key = ""
 consumer_secret = ""
 
 #for j.mp link
-no_jmp = False 
+no_jmp = True 
 bitly_name = ''
 bitly_key = ''
 
