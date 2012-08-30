@@ -38,6 +38,7 @@ class api:
                                 if mention['indices'][0] > pos1:
                                     mention['indices'][0] += tmp_add_len
                                     mention['indices'][1] += tmp_add_len
+                                    obj['entities']['user_mentions'][j] = mention
                         #print "rt url['expanded_url'] is",url['expanded_url']
                 obj['text'] = text
                 return True
