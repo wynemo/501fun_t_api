@@ -30,7 +30,14 @@ class api:
                         indices1 = [pos1 + added_len,pos1 + len(url['url']) + added_len]
                         url['indices'] = indices1
                         obj['entities']['urls'][j] = url
-                        added_len += len(url['url']) - pos2 + pos1
+                        tmp_add_len = len(url['url']) - pos2 + pos1
+                        added_len += tmp_add_len 
+                        #user mention
+                        if obj['entities'].has_key('user_mentions'):
+                            for j,mention in enumerate(obj['entities']['user_mentions']):
+                                if mention['indices'][0] > pos1:
+                                    mention['indices'][0] += tmp_add_len
+                                    mention['indices'][1] += tmp_add_len
                         #print "rt url['expanded_url'] is",url['expanded_url']
                 obj['text'] = text
                 return True
@@ -41,12 +48,12 @@ class api:
             o = json.loads(str1)
             if isinstance(o,list):
                 for i,each in enumerate(o):
-                    if warpper(each) is True:
+                    if warpper(each):
                         changed = 1
                         o[i] = each
                     if each.has_key('retweeted_status'):
                         rt_st = each['retweeted_status']
-                        if warpper(rt_st) is True:
+                        if warpper(rt_st):
                             changed = 1
                             each['retweeted_status'] = rt_st
                             o[i] = each
