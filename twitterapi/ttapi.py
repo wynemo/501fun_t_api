@@ -24,6 +24,7 @@ class api:
                             try:
                                 a = bitly.Api(settings.bitly_name,settings.bitly_key)
                                 url['url'] = a.expand(url['url'])
+                                url['expanded_url'] = url['url'] 
                             except:
                                 pass
                         text = text[:pos1 + added_len] + url['url'] + text[pos2 + added_len:]
