@@ -39,6 +39,12 @@ class api:
                                     mention['indices'][0] += tmp_add_len
                                     mention['indices'][1] += tmp_add_len
                                     obj['entities']['user_mentions'][j] = mention
+                        if obj['entities'].has_key('media'):
+                            for j,mda in enumerate(obj['entities']['media']):
+                                if mda['indices'][0] > pos1:
+                                    mda['indices'][0] += tmp_add_len
+                                    mda['indices'][1] += tmp_add_len
+                                    obj['entities']['media'][j] = mda
                         #print "rt url['expanded_url'] is",url['expanded_url']
                 obj['text'] = text
                 return True
