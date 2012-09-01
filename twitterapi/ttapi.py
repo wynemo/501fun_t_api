@@ -32,19 +32,21 @@ class api:
                         obj['entities']['urls'][j] = url
                         tmp_add_len = len(url['url']) - pos2 + pos1
                         added_len += tmp_add_len 
+                        def increase(key): 
+                            for j,each in enumerate(obj['entities'][key]):
+                                if each['indices'][0] > pos1:
+                                    each['indices'][0] += tmp_add_len
+                                    each['indices'][1] += tmp_add_len
+                                    obj['entities'][key][j] = each
                         #user mention
                         if obj['entities'].has_key('user_mentions'):
-                            for j,mention in enumerate(obj['entities']['user_mentions']):
-                                if mention['indices'][0] > pos1:
-                                    mention['indices'][0] += tmp_add_len
-                                    mention['indices'][1] += tmp_add_len
-                                    obj['entities']['user_mentions'][j] = mention
+                            increase('user_mentions')
+                        #media
                         if obj['entities'].has_key('media'):
-                            for j,mda in enumerate(obj['entities']['media']):
-                                if mda['indices'][0] > pos1:
-                                    mda['indices'][0] += tmp_add_len
-                                    mda['indices'][1] += tmp_add_len
-                                    obj['entities']['media'][j] = mda
+                            increase('media')
+                        #hashtags
+                        if obj['entities'].has_key('hashtags'):
+                            increase('hashtags')
                         #print "rt url['expanded_url'] is",url['expanded_url']
                 obj['text'] = text
                 return True
