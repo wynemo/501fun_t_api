@@ -99,6 +99,12 @@ class api:
         if url1.endswith('.json'):
             if i1.has_key('include_entities') is False:
                 i1['include_entities'] = u'true'
+
+        #for twitter ios 6,home_timeline
+        if url1.startswith('statuses/home_timeline'):
+            if i1.has_key('earned'):
+                i1.pop('earned')
+
         rv = twitUtil.MakeApiCall(access_token,url1,type1,dict(i1))
         #ndswith('/activity/summary.json'):
         if url1.endswith('.json'):
