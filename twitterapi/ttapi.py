@@ -102,7 +102,7 @@ class api:
 
         #for new twitter ,home_timeline
         #home timeline
-        pop_earned = url1.startswith('statuses/home_timeline') or
+        pop_earned = url1.startswith('statuses/home_timeline') or\
             url1.startswith('statuses/user_timeline')
         if pop_earned:
             if i1.has_key('earned'):
