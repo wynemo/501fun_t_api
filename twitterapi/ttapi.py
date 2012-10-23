@@ -99,9 +99,9 @@ class api:
             url1 = web.url().replace(r'/api/','',1)
         i1 = web.input().copy()
 
-        if url1.endswith('.json'):
-            if i1.has_key('include_entities') is False:
-                i1['include_entities'] = u'true'
+        #if url1.endswith('.json'):
+        #    if i1.has_key('include_entities') is False:
+        #        i1['include_entities'] = u'true'
 
         #for new twitter ,home_timeline
         #home timeline
