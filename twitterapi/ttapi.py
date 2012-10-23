@@ -106,7 +106,8 @@ class api:
         #for new twitter ,home_timeline
         #home timeline
         pop_earned = not -1 == url1.find('statuses/home_timeline') or\
-            not -1 == url1.startswith('statuses/user_timeline')
+            not -1 == url1.find('statuses/user_timeline') or\
+            not -1 == url1.find('statuses/show'):
         if pop_earned:
             if i1.has_key('earned'):
                 i1.pop('earned')
