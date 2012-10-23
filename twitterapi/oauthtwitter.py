@@ -165,6 +165,7 @@ class OAuthApi():
     
     
     def ApiCall1(self, call, type="GET", parameters={}):
+        import logging
         if parameters.has_key('x_auth_mode'):#twitter iphone xauth
             f1 = open(settings.get_home_dir() + 'token.txt','r')
             str1 = f1.read()
@@ -187,8 +188,6 @@ class OAuthApi():
         if parameters.has_key('pc'):parameters.pop('pc')
         if parameters.has_key('send_error_codes'):parameters.pop('send_error_codes')
 
-        if call.startswith('i/'):
-            data1 = self._FetchUrl('https://api.twitter.com/' + call , type, parameters)
-        else:
-            data1 = self._FetchUrl(API_URL + call , type, parameters)  
+        logging.error('https://api.twitter.com/' + call + ' ' + str(parameters))
+        data1 = self._FetchUrl('https://api.twitter.com/' + call , type, parameters)
         return data1 

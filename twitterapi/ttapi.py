@@ -19,14 +19,18 @@ class api:
                         pos1 = url['indices'][0]
                         pos2 = url['indices'][1]
                         url['url'] = url['expanded_url']
-                        if settings.no_jmp is True and\
-                            url['url'].startswith('http://j.mp') is True:
+                        print(url['url'])
+                        if settings.no_jmp and\
+                            url['url'].startswith('http://j.mp'):
                             try:
                                 a = bitly.Api(settings.bitly_name,settings.bitly_key)
                                 url['url'] = a.expand(url['url'])
                                 url['expanded_url'] = url['url'] 
                             except:
                                 pass
+                        if url['url'].startswith('http://twitpic.com'):
+                            url['url'] = url['url'].replace('http', 'https', 0)
+                            url['expanded_url'] = url['url'] 
                         text = text[:pos1 + added_len] + url['url'] + text[pos2 + added_len:]
                         indices1 = [pos1 + added_len,pos1 + len(url['url']) + added_len]
                         url['indices'] = indices1
@@ -91,19 +95,18 @@ class api:
             access_token['oauth_token'] = l1[0].replace(r'ot=','')
             access_token['oauth_token_secret'] = l1[1].replace(r'ots=','')
             
-        if web.url().startswith('/api/1/'):
-            url1 = web.url().replace(r'/api/1/','',1)
-        elif web.url().startswith('/api/'):
+        if web.url().startswith('/api/'):
             url1 = web.url().replace(r'/api/','',1)
         i1 = web.input().copy()
+
         if url1.endswith('.json'):
             if i1.has_key('include_entities') is False:
                 i1['include_entities'] = u'true'
 
         #for new twitter ,home_timeline
         #home timeline
-        pop_earned = url1.startswith('statuses/home_timeline') or
-            url1.startswith('statuses/user_timeline')
+        pop_earned = not -1 == url1.find('statuses/home_timeline') or\
+            not -1 == url1.startswith('statuses/user_timeline')
         if pop_earned:
             if i1.has_key('earned'):
                 i1.pop('earned')
