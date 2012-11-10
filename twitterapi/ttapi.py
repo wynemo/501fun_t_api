@@ -30,7 +30,7 @@ class api:
                                 pass
                         if url['url'].startswith('http://twitpic.com'):
                             #url['url'] = url['url'].replace('http', 'https', 1)
-                            url['url'] = 'https://501fun.dabin.info/proxy?url=' +\
+                            url['url'] = 'https://501fun.dabin.info/proxy?nojs=1&url=' +\
                                 url['url']
                             url['expanded_url'] = url['url'] 
                         text = text[:pos1 + added_len] + url['url'] + text[pos2 + added_len:]
