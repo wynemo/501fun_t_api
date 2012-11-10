@@ -188,6 +188,9 @@ class OAuthApi():
         if parameters.has_key('pc'):parameters.pop('pc')
         if parameters.has_key('send_error_codes'):parameters.pop('send_error_codes')
 
+        if not call.startswith('1/') and not call.startswith('i/') and \
+            not call.startswith('1.1/'):
+            call = '1/' + call
         logging.error('https://api.twitter.com/' + call + ' ' + str(parameters))
         data1 = self._FetchUrl('https://api.twitter.com/' + call , type, parameters)
         return data1 
