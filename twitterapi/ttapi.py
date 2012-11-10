@@ -29,7 +29,7 @@ class api:
                             except:
                                 pass
                         if url['url'].startswith('http://twitpic.com'):
-                            url['url'] = url['url'].replace('http', 'https', 0)
+                            url['url'] = url['url'].replace('http', 'https', 1)
                             url['expanded_url'] = url['url'] 
                         text = text[:pos1 + added_len] + url['url'] + text[pos2 + added_len:]
                         indices1 = [pos1 + added_len,pos1 + len(url['url']) + added_len]
