@@ -21,6 +21,7 @@ import urllib
 import urllib2
 import urlparse
 import time
+import logging
 
 try:
     from urlparse import parse_qs, parse_qsl
@@ -89,7 +90,6 @@ class OAuthApi():
         else:
             url = req.to_url()
             encoded_post_data = ""
-        #print '99 url is',url    
         if encoded_post_data:
             url_data = opener.open(url, encoded_post_data).read()
         else:
@@ -165,7 +165,6 @@ class OAuthApi():
     
     
     def ApiCall1(self, call, type="GET", parameters={}):
-        import logging
         if parameters.has_key('x_auth_mode'):#twitter iphone xauth
             f1 = open(settings.get_home_dir() + 'token.txt','r')
             str1 = f1.read()
@@ -191,6 +190,6 @@ class OAuthApi():
         if not call.startswith('1/') and not call.startswith('i/') and \
             not call.startswith('1.1/'):
             call = '1/' + call
-        logging.error('https://api.twitter.com/' + call + ' ' + str(parameters))
+        logging.debug('https://api.twitter.com/' + call + ' ' + str(parameters))
         data1 = self._FetchUrl('https://api.twitter.com/' + call , type, parameters)
         return data1 

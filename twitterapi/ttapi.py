@@ -1,4 +1,7 @@
-import web,twitUtil
+import logging
+import json
+import web
+import twitUtil
 from config import settings
 from ..bitly import bitly
 
@@ -6,7 +9,6 @@ class api:
     #def foo()
     #    referer = web.ctx.env.get('User-Agent', 'ios')
     def sub_url(self,str1):
-        import json
         def warpper(obj):
             if obj.has_key('text') and\
                 obj.has_key('entities') and\
@@ -27,9 +29,9 @@ class api:
                                 url['url'] = a.expand(url['url'])
                                 url['expanded_url'] = url['url'] 
                             except:
+                                logging.warning(url['url'] + ' fail')
                                 pass
                         if url['url'].startswith('http://twitpic.com'):
-                            #url['url'] = url['url'].replace('http', 'https', 1)
                             url['url'] = 'https://501fun.dabin.info/proxy?nojs=1&url=' +\
                                 url['url']
                             url['expanded_url'] = url['url'] 
@@ -54,7 +56,6 @@ class api:
                         #hashtags
                         if obj['entities'].has_key('hashtags'):
                             increase('hashtags')
-                        #print "rt url['expanded_url'] is",url['expanded_url']
                 obj['text'] = text
                 return True
             return False
@@ -75,16 +76,13 @@ class api:
                             o[i] = each
                 if changed == 1:
                     rv = json.dumps(o)
-                #print json.dumps(o,indent=4)
         except Exception,e:
-            print '---------------------- e is',str(e)
             pass
         finally:
             pass
         return rv
         
     def apicall(self,type1):
-        import json
         web.header('Content-Type','text/html; charset=utf-8', unique=True)
 
         access_token = {}
@@ -101,9 +99,6 @@ class api:
             url1 = web.url().replace(r'/api/','',1)
         i1 = web.input().copy()
 
-        #if url1.endswith('.json'):
-        #    if i1.has_key('include_entities') is False:
-        #        i1['include_entities'] = u'true'
 
         #for new twitter ,home_timeline
         #home timeline
@@ -115,12 +110,8 @@ class api:
                 i1.pop('earned')
 
         rv = twitUtil.MakeApiCall(access_token,url1,type1,dict(i1))
-        #ndswith('/activity/summary.json'):
         if url1.endswith('.json'):
-            #tmp_o = json.loads(rv)
-            #print json.dumps(tmp_o,indent=4)
             rv = self.sub_url(rv)
-        #print rv
         return rv
         
     def GET(self,para):
