@@ -170,11 +170,12 @@ class OAuthApi():
             str1 = f1.read()
             f1.close()
             l1 = str1.split(';')
+            print 'l1 is ', l1
             rv = u'oauth_token=' + l1[0].replace(r'ot=','').decode('utf-8')
             rv += u'&oauth_token_secret=' + l1[1].replace(r'ots=','').decode('utf-8')
-            rv += u'&screen_name=' + l1[2].replace(r'sc_name=','').decode('utf-8')
-            rv += u'&user_id=' + l1[3].replace(r'us_id=','').decode('utf-8')
-            rv += u'&x_auth_expires=0'
+            rv += u'&screen_name=' + l1[3].replace(r'sc_name=','').decode('utf-8')
+            rv += u'&user_id=' + l1[4].replace(r'us_id=','').decode('utf-8')
+            #rv += u'&x_auth_expires=0'
             return rv
         if parameters.has_key('oauth_nonce'):parameters.pop('oauth_nonce')
         if parameters.has_key('oauth_timestamp'):parameters.pop('oauth_timestamp')
