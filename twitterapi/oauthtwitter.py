@@ -192,6 +192,7 @@ class OAuthApi():
             call = '1.1' + call[call.find('/'):]
         if not call.startswith('1.1/'):
             call = '1.1/' + call
+        call = call.replace('statuses/mentions.json', 'statuses/mentions_timeline.json')
         logging.debug('https://api.twitter.com/' + call + ' ' + str(parameters))
         data1 = self._FetchUrl('https://api.twitter.com/' + call , type, parameters)
         return data1 
