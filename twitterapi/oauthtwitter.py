@@ -197,7 +197,7 @@ class OAuthApi():
         
         def sub_favorite_action(action):
             import re
-            o = re.search('favorites/' + action + '/(\d+)\.json')
+            o = re.search('favorites/' + action + '/(\d+)\.json', call)
             if o is not None:
                 id = o.group(1)
                 parameters['key'] = id
