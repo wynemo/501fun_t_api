@@ -203,8 +203,8 @@ class OAuthApi():
                 parameters['key'] = id
                 call = '1.1/favorites/' + action + '.json'
             
-        sub_old_favorite('create')
-        sub_old_favorite('destroy')
+        sub_favorite_action('create')
+        sub_favorite_action('destroy')
         call = call.replace('favorites.json', 'favorites/list.json')
         
         logging.debug('https://api.twitter.com/' + call + ' ' + str(parameters))
