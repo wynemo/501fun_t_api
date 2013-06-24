@@ -192,7 +192,21 @@ class OAuthApi():
             call = '1.1' + call[call.find('/'):]
         if not call.startswith('1.1/'):
             call = '1.1/' + call
+
         call = call.replace('statuses/mentions.json', 'statuses/mentions_timeline.json')
+        
+        def sub_favorite_action(action):
+            import re
+            o = re.search('favorites/' + action + '/(\d+)\.json')
+            if o is not None:
+                id = o.group(1)
+                parameters['key'] = id
+                call = '1.1/favorites/' + action + '.json'
+            
+        sub_old_favorite('create')
+        sub_old_favorite('destroy')
+        call = call.replace('favorites.json', 'favorites/list.json')
+        
         logging.debug('https://api.twitter.com/' + call + ' ' + str(parameters))
         data1 = self._FetchUrl('https://api.twitter.com/' + call , type, parameters)
         return data1 
