@@ -200,7 +200,7 @@ class OAuthApi():
             o = re.search('favorites/' + action + '/(\d+)\.json', call)
             if o is not None:
                 id = o.group(1)
-                parameters['key'] = id
+                parameters['id'] = id
                 return '1.1/favorites/' + action + '.json'
             else:
                 return call
