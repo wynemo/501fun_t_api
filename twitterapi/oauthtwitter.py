@@ -195,16 +195,18 @@ class OAuthApi():
 
         call = call.replace('statuses/mentions.json', 'statuses/mentions_timeline.json')
         
-        def sub_favorite_action(action):
+        def sub_favorite_action(action, call, parameters):
             import re
             o = re.search('favorites/' + action + '/(\d+)\.json', call)
             if o is not None:
                 id = o.group(1)
                 parameters['key'] = id
-                call = '1.1/favorites/' + action + '.json'
+                return '1.1/favorites/' + action + '.json'
+            else:
+                return call
             
-        sub_favorite_action('create')
-        sub_favorite_action('destroy')
+        call = sub_favorite_action('create', call, parameters)
+        call = sub_favorite_action('destroy', call, parameters)
         call = call.replace('favorites.json', 'favorites/list.json')
         
         logging.debug('https://api.twitter.com/' + call + ' ' + str(parameters))
